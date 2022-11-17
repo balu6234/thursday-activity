@@ -12,5 +12,8 @@ public class MainShape {
 	public void setShape(String shape) {
 		Shape = shape;
 	}
+	public void draw() {
+		
+	}
 
 }

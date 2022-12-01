@@ -21,7 +21,7 @@ public class FruitCollectioArrayList {
   //Removing Fruits In Basket
   System.out.println("------------------");
   al.remove(al1);
-  System.out.println("After Removing"+al);
+  System.out.println("After Removing:"+al);
   System.out.println("------------------");
   //Replacing Fruits In Basket
   al.set(3, "Moosambi");

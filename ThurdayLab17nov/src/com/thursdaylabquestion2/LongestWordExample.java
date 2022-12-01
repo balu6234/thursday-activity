@@ -13,7 +13,7 @@ public class LongestWordExample {
 	{
 		String longest_word="";
 		String Word;
-		Scanner sc=new Scanner(new File("Etestfile.txt"));
+		Scanner sc=new Scanner(new File("E:testfile.txt"));
 		while (sc.hasNext())
 		{
 			Word=sc.next();

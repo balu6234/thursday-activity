@@ -6,7 +6,7 @@ public class ExampleAccountBalanceTest {
 		  System.out.println("enter Amount to withdraw:");
 		   Amount=sc.nextInt();
 		   int Balance=100;
-		   if(Balance>Amount) {
+		   if(Balance>=Amount) {
 			   throw new InsufficientBalanceException("Insufficient balance");
 		   }
 	      else 

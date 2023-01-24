@@ -25,23 +25,65 @@ public class Bookcontroller {
 	BookServiceImpl bookservice;
 	@PostMapping("/book")
 	public ResponseEntity<Book> addBook(@RequestBody @Valid BookDTO bookDTO)
+	try{
+	    Book book =bookservice.saveBook(bookDTO);
+	    if(book!=null){
+	        return new ResponseEntity<Book>(book.HttpStatus.CREATED);
+	    }
+	}
+	catch(Exception ex)
 	{
-	 return new ResponseEntity<>(bookservice.saveBook(bookDTO),HttpStatus.CREATED);
+	    throw new BookNotFoundException("unable to add");
+	}
+	return new ResponseEntity<Book>(HttpStatus.BAD_REQUEST);
 	}
 	@GetMapping("/books/{bookId}")
 	public ResponseEntity<Book> getBookById(@PathVariable("bookId")int bookId)
     {
-				return new ResponseEntity<>(bookservice.getBookById(bookId),HttpStatus.FOUND);
+			try{
+	    Book book =bookservice.getBookById(bookId);
+	    if(book!=null){
+	        return new ResponseEntity<Book>(book.HttpStatus.FOUND);
+	    }
+	}
+	catch(Exception ex)
+	{
+	    throw new BookNotFoundException("NO BOOK FIND WITH ID"+bookId+"Found");
+	}
+	return new ResponseEntity<Book>(HttpStatus.NOT_FOUND);
+	}
     }
 			
 	@DeleteMapping("/books/delete/{bookId}")
 	public ResponseEntity<Book> deleteBookById(@PathVariable("bookId")int bookId)
 	{
-		return new ResponseEntity<>(bookservice.deleteBook(bookId),HttpStatus.FOUND);
+	try{
+	    Book book =bookservice.deleteBookById(bookId);
+	    if(book!=null){
+	        return new ResponseEntity<Book>(book.HttpStatus.ACCEPTED);
+	    }
+	}
+	catch(Exception ex)
+	{
+	    throw new BookNotFoundException("unable to delete");
+	}
+	return new ResponseEntity<Book>(HttpStatus.NOT_ACCEPTABLE);
+	}
 	}	
 	  @PutMapping("/book/update/{bookId}")
-	 ResponseEntity<Book> UpdateStudentById(@RequestBody BookDTO bookDTO,@PathVariable int bookId)
+	 ResponseEntity<Book> UpdateBookById(@RequestBody BookDTO bookDTO,@PathVariable int bookId)
 	{
-		return new ResponseEntity<>(bookservice.updateBook(bookDTO, bookId),HttpStatus.CREATED);
+		try{
+	    Book book =bookservice.updateBook(bookDTO,bookId);
+	    if(book!=null){
+	        return new ResponseEntity<Book>(book.HttpStatus.CREATED);
+	    }
+	}
+	catch(Exception ex)
+	{
+	    throw new BookNotFoundException("unable to update");
+	}
+	return new ResponseEntity<Book>(HttpStatus.NOT_MODIFIED);
+	}
 	}
 }

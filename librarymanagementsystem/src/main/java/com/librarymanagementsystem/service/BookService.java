@@ -5,7 +5,7 @@ import com.librarymanagementsystem.dto.BookDTO;
 
 public interface BookService {
   Book saveBook(BookDTO bookDTO);
-  Book updateBook(BookDTO bookDTO, int bookId);
-  Book deleteBook(int bookId);
-  Book getBookById(int bookId);
+  Book updateBook(BookDTO bookDTO, int id);
+  String deleteBookById(int id);
+  Book getBookById(int id);
 }

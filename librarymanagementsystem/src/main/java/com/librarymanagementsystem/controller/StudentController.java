@@ -17,6 +17,7 @@ import com.librarymanagementsystem.Entity.Book;
 import com.librarymanagementsystem.Entity.Student;
 import com.librarymanagementsystem.dto.BookDTO;
 import com.librarymanagementsystem.dto.StudentDTO;
+import com.librarymanagementsystem.exception.BookNotFoundException;
 import com.librarymanagementsystem.exception.StudentNotFound;
 import com.librarymanagementsystem.serviceimpl.BookServiceImpl;
 import com.librarymanagementsystem.serviceimpl.StudentServiceimpl;
@@ -24,32 +25,67 @@ import com.librarymanagementsystem.serviceimpl.StudentServiceimpl;
 public class StudentController {
 	@Autowired
 	StudentServiceimpl studentserviceimpl;
-	@PostMapping("/students")
-	public ResponseEntity<Student> addStudent(@RequestBody @Valid StudentDTO studentDTO)
+	@PostMapping("/student")
+	public ResponseEntity<Student>saveStudent(@RequestBody @Valid StudentDTO studentDTO)
 	{
-		
-		 return new ResponseEntity<>(studentserviceimpl.saveStudent(studentDTO),HttpStatus.CREATED);
-
+	try{
+	    Student student =studentserviceimpl.saveStudent(studentDTO);
+	    if(student!=null)
+	    {
+	        return new ResponseEntity<Student>(student,HttpStatus.CREATED);
+	    }
 	}
-
-	@GetMapping("/students/{studentId}")
-	public ResponseEntity<Student> getStudentById(@PathVariable("studentId")int studentId)
+	catch(Exception ex)
 	{
-				return new ResponseEntity<>(studentserviceimpl.getStudentById(studentId),HttpStatus.FOUND);
-    }
-	
+	    throw new StudentNotFound("unable to add");
+	}
+	return new ResponseEntity<Student>(HttpStatus.BAD_REQUEST);
+	}
+	@GetMapping("/students/{studentId}") ResponseEntity<Student> getStudentById(@PathVariable("studentId")int studentId)
+    {
+			try{
+	    Student student =studentserviceimpl.getStudentById(studentId);
+	    if(student!=null){
+	        return new ResponseEntity<Student>(student,HttpStatus.FOUND);
+	    }
+	}
+	catch(Exception ex)
+	{
+	    throw new StudentNotFound("NO BOOK FIND WITH ID"+studentId+"Found");
+	}
+	return new ResponseEntity<Student>(HttpStatus.NOT_FOUND);
+	}
+    
+			
 	@DeleteMapping("/student/delete/{studentId}")
-	public ResponseEntity<Student> deleteStudentById(@PathVariable("studentId")int studentId)
+	public ResponseEntity<String> deleteStudentById(@PathVariable("studentId")int studentId)
 	{
-				return new ResponseEntity<>(studentserviceimpl.getStudentById(studentId),HttpStatus.FOUND);
+	try{
+	    String student=studentserviceimpl.deleteStudent(studentId);
+	    if(student!=null){
+	        return new ResponseEntity<String>(student,HttpStatus.ACCEPTED);
+	    }
 	}
-		    
-	
-
+	catch(Exception ex)
+	{
+	    throw new StudentNotFound("unable to delete");
+	}
+	return new ResponseEntity<String>(HttpStatus.NOT_ACCEPTABLE);
+	}
+		
 	  @PutMapping("/student/update/{studentId}")
 	 ResponseEntity<Student> UpdateStudentById(@RequestBody StudentDTO studentDTO,@PathVariable int studentId)
 	{
-				return new ResponseEntity<>(studentserviceimpl.getStudentById(studentId),HttpStatus.FOUND);
+		try{
+	    Student student=studentserviceimpl.updateStudent(studentDTO, studentId);
+	    if(student!=null){
+	        return new ResponseEntity<Student>(student,HttpStatus.ACCEPTED);
+	    }
 	}
-			
-}
+	catch(Exception ex)
+	{
+	    throw new StudentNotFound("unable to update");
+	}
+	return new ResponseEntity<Student>(HttpStatus.NOT_MODIFIED);
+	}
+	}

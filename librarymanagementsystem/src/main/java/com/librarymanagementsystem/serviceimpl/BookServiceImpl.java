@@ -21,30 +21,32 @@ public Book saveBook(BookDTO bookDTO) {
 	Book book=Book.builder()
 			.bookName(bookDTO.getBookName())
 			.bookAuthor(bookDTO.getBookAuthor())
-			.bookPrice(bookDTO.getBookPrice()).bookPublication(bookDTO.getBookPublication())
+			.bookPrice(bookDTO.getBookPrice()).bookPublication(bookDTO.getBookPublication()).student(bookDTO.getStudent())
 			.build();
 	return bookrepository.save(book);
 	
 }
 @Override
-public Book updateBook(BookDTO bookDTO, int bookId) {
-	Book book=Book.builder()
+public Book updateBook(BookDTO bookDTO, int id) {
+	Book book=bookrepository.findById(id).get();
+	Book book1=Book.builder()
 			.bookName(bookDTO.getBookName())
 			.bookAuthor(bookDTO.getBookAuthor())
-			.bookPrice(bookDTO.getBookPrice()).bookPublication(bookDTO.getBookPublication())
+			.bookPrice(bookDTO.getBookPrice()).bookPublication(bookDTO.getBookPublication()).student(bookDTO.getStudent())
 			.build();
-	return bookrepository.save(book);
+	return bookrepository.save(book1);
 }
 
 @Override
-public Book deleteBook(int bookId) {
-	bookrepository.findById(bookId).get();
-	return null;
+public String deleteBookById(int id) {
+	 bookrepository.deleteById(id);
+	 return "deleted successfully";
+	
 }
 
 @Override
-public Book getBookById(int bookId) {
-	return bookrepository.findById(bookId).get();
+public Book getBookById(int id) {
+	return bookrepository.findById(id).get();
 }
 
 }

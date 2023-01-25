@@ -38,5 +38,9 @@ private String bookAuthor;
 @Column(name="bookPublication")
 private String bookPublication;
 
+@ManyToOne(cascade=CascadeType.ALL)
+@JoinColumn(name="studentId")
+private Student student;
+
 
 }

@@ -24,5 +24,7 @@ public class StudentDTO {
 	private String studentName;
 	@NotNull(message="address may not be empty")
 	private String studentAddress;
-	Book book;
+	@Min(value=1,message="age is greater than 1")
+	@Max(value=100,message="age should noot be greater than 100")
+	private int studentAge;
 }

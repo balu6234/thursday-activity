@@ -6,13 +6,4 @@ public class StudentNotFound extends RuntimeException {
 		super(message);
 		
 	}
-
-	public StudentNotFound(Throwable cause) {
-		super(cause);
-		// TODO Auto-generated constructor stub
-	}
-
-	
-	
-
 }

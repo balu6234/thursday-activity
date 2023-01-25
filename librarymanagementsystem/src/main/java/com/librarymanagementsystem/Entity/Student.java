@@ -33,8 +33,6 @@ private int studentId;
 private String studentName;
 @Column(name="studentAddress")
 private String studentAddress;
-@ManyToOne(cascade=CascadeType.ALL)
-@JoinColumn(name="BookId")
-Book book;
-
+@Column(name=" studentAge")
+private String studentAge;
 }

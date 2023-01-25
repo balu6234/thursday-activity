@@ -26,10 +26,10 @@ public class BookDTO {
  @Size(min=3,max=15,message="name must be in range 3-15 characters")
  private String bookAuthor;
  @Min(value=100,message="invalid price")
- @Max(value=100,message="invalid price")
+ @Max(value=1000,message="invalid price")
  private String bookPrice;
  @NotNull(message="null not allowed")
  private String bookPublication;
  
- Book book;
+ private Student student;
 }

@@ -29,13 +29,13 @@ public class GlobalExceptionHandler {
 		return errorResponse;
 	}
 	@ExceptionHandler(StudentNotFound.class)
-		public ResponseEntity<Map<String,List<String>>> handleNotFoundException(StudentNotFound ex)
+		public ResponseEntity<Map<String,List<String>>> StudentNotFoundException(StudentNotFound ex)
 		{
 			List<String> errors=Collections.singletonList(ex.getMessage());
 			return new ResponseEntity<>(getErrorMap(errors),new HttpHeaders(),HttpStatus.BAD_REQUEST);
 		}
 	@ExceptionHandler(BookNotFoundException.class)
-	public ResponseEntity<Map<String,List<String>>> handleNotFoundException(BookNotFoundException ex)
+	public ResponseEntity<Map<String,List<String>>> BookNotFoundException(BookNotFoundException ex)
 	{
 		List<String> errors=Collections.singletonList(ex.getMessage());
 		return new ResponseEntity<>(getErrorMap(errors),new HttpHeaders(),HttpStatus.BAD_REQUEST);

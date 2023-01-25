@@ -17,31 +17,31 @@ public class StudentServiceimpl implements StudentService {
     StudentRepository studentRepository;
  
 	public Student saveStudent(StudentDTO studentDTO) {
-	 Student student=Student.builder().studentName(studentDTO.getStudentName()).book(studentDTO.getBook())
+	 Student student=Student.builder().studentName(studentDTO.getStudentName())
 			 .studentAddress(studentDTO.getStudentAddress())
 			 .build();
 		return studentRepository.save(student);
 	}
 
 
-	public Student updateStudent(StudentDTO studentDTO, int studentId) {
+	public Student updateStudent(StudentDTO studentDTO, int id) {
 		
-	Student student=studentRepository.findById(studentId).get();
-	Student student1=Student.builder().studentName(studentDTO.getStudentName()).book(studentDTO.getBook())
+	Student student=studentRepository.findById(id).get();
+	Student student1=Student.builder().studentName(studentDTO.getStudentName())
 			 .studentAddress(studentDTO.getStudentAddress())
 			 .build();
 		return studentRepository.save(student1);
 	}
 
 	@Override
-	public Student getStudentById(int studentId) {
-		return studentRepository.findById(studentId).get();
+	public Student getStudentById(int id) {
+		return studentRepository.findById(id).get();
 	}
 
 	@Override
-	public Student deleteStudent(int studentId) {
-		 studentRepository.deleteById(studentId);
-		 return null;
+	public String deleteStudent(int id) {
+		 studentRepository.deleteById(id);
+		 return "deleted succesfully";
 	}
 
 	
